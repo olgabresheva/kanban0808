@@ -2,13 +2,20 @@ import React from 'react';
 import './App.css';
 import Task from "./Task";
 
+
 function Board(props) {
     return (
         <span className="col-sm">
+             <div className="card-header">
             {props.status}
-            {props.tasks.filter(el => el.status === props.status).map(el => <li key={el.id}>
-                <Task task={el}/>
-            </li>)}
+             </div>
+            <p/>
+            {props.tasks.filter(el => el.status === props.status).map(el =>
+            <li key={el.id}>
+                <Task task={el}
+                      onTaskDelete={props.onTaskDelete}
+                      onTaskMove={props.onTaskMove}/>
+            </li>).sort()}
         </span>
     );
 }
