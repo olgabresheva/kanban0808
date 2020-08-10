@@ -49,8 +49,8 @@ function Task(props) {
                 <p className="card-text"> P:{props.task.priority}</p>
             </div>
             <div className="card-footer bg-transparent text-muted">
-                <span>{downBtn}</span>
-                <span>{upBtn}</span>
+                <span onClick={() => props.onTaskMoveByPriority(props.task.id, "down")}>{downBtn}</span>
+                <span onClick={() => props.onTaskMoveByPriority(props.task.id, "up")}>{upBtn}</span>
                 <span onClick={() => props.onTaskDelete(props.task.id)}>{deleteBtn}</span>
                 {props.task.status !== 'To Do' &&
                 <span onClick={() => props.onTaskMove(props.task.id, "left")}>{leftBtn}</span>}

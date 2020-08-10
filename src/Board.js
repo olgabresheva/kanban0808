@@ -11,11 +11,12 @@ function Board(props) {
              </div>
             <p/>
             {props.tasks.filter(el => el.status === props.status).map(el =>
-            <li key={el.id}>
-                <Task task={el}
-                      onTaskDelete={props.onTaskDelete}
-                      onTaskMove={props.onTaskMove}/>
-            </li>).sort()}
+                <li key={el.id}>
+                    <Task task={el}
+                          onTaskDelete={props.onTaskDelete}
+                          onTaskMove={props.onTaskMove}
+                          onTaskMoveByPriority={props.onTaskMoveByPriority}/>
+                </li>).sort()}
         </span>
     );
 }

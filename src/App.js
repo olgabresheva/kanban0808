@@ -32,8 +32,22 @@ function App() {
                 if (direction === 'left') {
                     return ({...el, status: status[status.indexOf(el.status) - 1]})
                 }
-                if(direction === 'right'){
+                if (direction === 'right') {
                     return ({...el, status: status[status.indexOf(el.status) + 1]})
+                }
+            } else return el;
+        })
+        setTasks(updatedTasks);
+    }
+
+    const onTaskMoveByPriority = (id, direction) => {
+        const updatedTasks = tasks.map(el => {
+            if (el.id === id) {
+                if (direction === 'down') {
+                    return ({...el, priority: el.priority - 1})
+                }
+                if (direction === 'up') {
+                    return ({...el, priority: el.priority + 1})
                 }
             } else return el;
         })
@@ -53,7 +67,8 @@ function App() {
                         status={el}
                         tasks={tasks}
                         onTaskDelete={onTaskDelete}
-                        onTaskMove={onTaskMove}/>)}
+                        onTaskMove={onTaskMove}
+                        onTaskMoveByPriority={onTaskMoveByPriority}/>)}
                 </div>
 
             </div>
