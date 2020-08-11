@@ -11,8 +11,9 @@ function TaskCreateForm(props) {
 
     const taskPriorityInput = (e) => {
         setPriority(e.target.value);
-        if(priority !== '0'){setAddBtnDisabled(false)}
-        else setAddBtnDisabled(true);
+        if (priority !== '0') {
+            setAddBtnDisabled(false)
+        } else setAddBtnDisabled(true);
     }
 
 

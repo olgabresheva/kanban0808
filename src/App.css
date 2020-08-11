@@ -1,11 +1,18 @@
 .App {
-  padding: 20px;
+    padding: 20px;
 }
 
 li {
-  list-style: none;
+    list-style: none;
 }
 
 .card-footer {
-  padding: 0.25rem 1.25rem;
+    padding: 0.25rem 1.25rem;
+}
+
+
+.priority {
+    display: inline-block;
+    width: 3rem;
+    text-align: center;
 }

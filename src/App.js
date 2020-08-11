@@ -55,6 +55,15 @@ function App() {
         setTasks(updatedTasks);
     }
 
+    const onTaskSave = (id, newTitle) => {
+        const updatesTasks = tasks.map(el => {
+            if (el.id === id) {
+                return ({...el, title: newTitle})
+            } else return el;
+        })
+        setTasks(updatesTasks);
+    }
+
     return (
         <div className="App">
 
@@ -71,7 +80,8 @@ function App() {
                         tasks={tasks}
                         onTaskDelete={onTaskDelete}
                         onTaskMove={onTaskMove}
-                        onTaskMoveByPriority={onTaskMoveByPriority}/>)}
+                        onTaskMoveByPriority={onTaskMoveByPriority}
+                        onTaskSave={onTaskSave}/>)}
                 </div>
 
             </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 
 const deleteBtn = (<svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-trash" fill="currentColor"
@@ -40,22 +40,77 @@ const upBtn = (<svg width="1em" height="1em" viewBox="0 0 16 16" className="bi b
           d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
 </svg>);
 
+
+const editBtn = (<svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-pencil" fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd"
+          d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
+    <path fillRule="evenodd"
+          d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
+</svg>);
+
+const saveBtn = (<svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-check2-all" fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd"
+          d="M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+    <path
+        d="M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z"/>
+</svg>);
+
 function Task(props) {
+
+    const [editMode, setEditMode] = useState(false);
+    const [taskNewInput, setTaskNewInput] = useState(props.task.title);
+
+    const onTaskSave = () => {
+        props.onTaskSave(props.task.id, taskNewInput);
+        setEditMode(false);
+    }
+
+    const priorityBadge = {
+        1: "badge badge-danger",
+        2: "badge badge-warning",
+        3: "badge badge-success"
+    };
+
     return (
 
         <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">{props.task.title}</h5>
-                <p className="card-text"> P:{props.task.priority}</p>
+
+            <div className="card-header">
+                <span className="priority">
+                {props.task.priority !== 3 &&
+                <span onClick={() => props.onTaskMoveByPriority(props.task.id, "down")}>{downBtn}</span>}
+                    {props.task.priority !== 1 &&
+                    <span onClick={() => props.onTaskMoveByPriority(props.task.id, "up")}>{upBtn}</span>}
+                </span>
+                <span className={priorityBadge[props.task.priority]}>Priority: {props.task.priority}</span>
             </div>
-            <div className="card-footer bg-transparent text-muted">
-                {props.task.priority !== 3 && <span onClick={() => props.onTaskMoveByPriority(props.task.id, "down")}>{downBtn}</span>}
-                {props.task.priority !== 1 && <span onClick={() => props.onTaskMoveByPriority(props.task.id, "up")}>{upBtn}</span>}
+
+            <div className="card-body">
+
+                {editMode
+                    ? <>
+                        <input type="text" value={taskNewInput} onChange={e => setTaskNewInput(e.target.value)}/><br/>
+                        <button type="button" className="btn btn-outline-info btn-sm"
+                                onClick={onTaskSave}>{saveBtn}</button>
+                    </>
+                    : <h6 className="card-title">{props.task.title}</h6>
+                }
+
+            </div>
+            <div className="card-footer bg-transparent text-muted border-0">
+                <span className="float-left">
+
+                <span onClick={() => setEditMode(true)}>{editBtn}</span>
                 <span onClick={() => props.onTaskDelete(props.task.id)}>{deleteBtn}</span>
+                    </span>
+                <span className="float-right">
                 {props.task.status !== 'To Do' &&
                 <span onClick={() => props.onTaskMove(props.task.id, "left")}>{leftBtn}</span>}
-                {props.task.status !== 'Done' &&
-                <span onClick={() => props.onTaskMove(props.task.id, "right")}>{rightBtn}</span>}
+                    {props.task.status !== 'Done' &&
+                    <span onClick={() => props.onTaskMove(props.task.id, "right")}>{rightBtn}</span>}
+                </span>
 
             </div>
         </div>
