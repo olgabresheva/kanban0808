@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 const initial = [
     {id: uuidv4(), title: 'Task-1', priority: 2, status: 'To Do'},
     {id: uuidv4(), title: 'Task-2', priority: 3, status: 'Review'},
+    {id: uuidv4(), title: 'Task-3', priority: 1, status: 'In Progress'},
 ]
 
 function App() {
@@ -44,10 +45,10 @@ function App() {
         const updatedTasks = tasks.map(el => {
             if (el.id === id) {
                 if (direction === 'down') {
-                    return ({...el, priority: el.priority - 1})
+                    return ({...el, priority: el.priority + 1})
                 }
                 if (direction === 'up') {
-                    return ({...el, priority: el.priority + 1})
+                    return ({...el, priority: el.priority - 1})
                 }
             } else return el;
         })
@@ -58,6 +59,8 @@ function App() {
         <div className="App">
 
             <div className="container">
+
+                <h2>Kanban Board</h2>
                 <TaskCreateForm onTaskCreate={onTaskCreate}/>
 
                 <hr/>
