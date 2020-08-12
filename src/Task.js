@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
+import Modal from "react-bootstrap/Modal";
+import Button from 'react-bootstrap/Button';
 
 const deleteBtn = (<svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-trash" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
@@ -62,6 +64,15 @@ function Task(props) {
     const [editMode, setEditMode] = useState(false);
     const [taskNewInput, setTaskNewInput] = useState(props.task.title);
 
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => {
+        props.onTaskDelete(props.task.id);
+        setShow(false);
+    }
+
+    const handleShow = () => setShow(true);
+
     const onTaskSave = () => {
         props.onTaskSave(props.task.id, taskNewInput);
         setEditMode(false);
@@ -76,7 +87,6 @@ function Task(props) {
     return (
 
         <div className="card">
-
             <div className="card-header">
                 <span className="priority">
                 {props.task.priority < 3 &&
@@ -101,10 +111,23 @@ function Task(props) {
             </div>
             <div className="card-footer bg-transparent text-muted border-0">
                 <span className="float-left">
-
                 <span onClick={() => setEditMode(true)}>{editBtn}</span>
-                <span onClick={() => props.onTaskDelete(props.task.id)}>{deleteBtn}</span>
+                    {/*<span onClick={() => props.onTaskDelete(props.task.id)}></span>*/}
+                    <span onClick={handleShow}>{deleteBtn}</span>
                     </span>
+                {show &&
+                    <>
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Body>Please confirm if you want to delete this task</Modal.Body>
+                    <Modal.Footer>
+                        <Button type="button" className="btn btn-secondary btn-sm" onClick={handleClose}>Cancel</Button>
+                        <Button type="button" className="btn btn-primary btn-sm" onClick={handleClose}>Confirm</Button>
+                    </Modal.Footer>
+                </Modal>
+                </>
+                }
+
+
                 <span className="float-right">
                 {props.task.status !== 'To Do' &&
                 <span onClick={() => props.onTaskMove(props.task.id, "left")}>{leftBtn}</span>}
