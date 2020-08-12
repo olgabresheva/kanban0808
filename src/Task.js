@@ -79,9 +79,9 @@ function Task(props) {
 
             <div className="card-header">
                 <span className="priority">
-                {props.task.priority !== 3 &&
+                {props.task.priority < 3 &&
                 <span onClick={() => props.onTaskMoveByPriority(props.task.id, "down")}>{downBtn}</span>}
-                    {props.task.priority !== 1 &&
+                    {props.task.priority > 1 &&
                     <span onClick={() => props.onTaskMoveByPriority(props.task.id, "up")}>{upBtn}</span>}
                 </span>
                 <span className={priorityBadge[props.task.priority]}>Priority: {props.task.priority}</span>

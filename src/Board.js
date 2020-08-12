@@ -10,9 +10,10 @@ function Board(props) {
             {props.status}
              </div>
             <p/>
-            {props.tasks.filter(el => el.status === props.status).sort(function (a, b) {
-                return a.priority - b.priority
-            }).map(el =>
+            {props.tasks.filter(el => el.status === props.status)
+                .sort(function (a, b) {
+                return a.priority - b.priority})
+                .map(el =>
                 <li key={el.id}>
                     <Task task={el}
                           onTaskDelete={props.onTaskDelete}

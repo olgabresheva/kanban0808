@@ -45,10 +45,10 @@ function App() {
         const updatedTasks = tasks.map(el => {
             if (el.id === id) {
                 if (direction === 'down') {
-                    return ({...el, priority: el.priority + 1})
+                    return ({...el, priority: Number(el.priority) + 1})
                 }
                 if (direction === 'up') {
-                    return ({...el, priority: el.priority - 1})
+                    return ({...el, priority: Number(el.priority) - 1})
                 }
             } else return el;
         })

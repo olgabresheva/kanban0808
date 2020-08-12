@@ -18,7 +18,7 @@ function TaskCreateForm(props) {
 
 
     const taskCreate = (e) => {
-        e.preventDefault();
+        //e.preventDefault();
         props.onTaskCreate(newTask, priority);
         setFormOpen(false);
         setNewTask('');
@@ -37,7 +37,6 @@ function TaskCreateForm(props) {
                     <input type="text" className="form-control" placeholder={'Enter Your Task'} value={newTask}
                            onChange={e => setNewTask(e.target.value)}/>
                 </div>
-                {/*<label htmlFor="validationDefault04">Priority</label>*/}
                 <select className="custom-select" onChange={taskPriorityInput} required>
                     <option value="0">Select Priority</option>
                     <option value="1">1</option>
