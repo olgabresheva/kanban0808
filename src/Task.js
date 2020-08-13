@@ -71,7 +71,7 @@ function Task(props) {
         setShow(false);
     }
 
-    const handleShow = () => setShow(true);
+    // const handleShow = () => setShow(true);
 
     const onTaskSave = () => {
         props.onTaskSave(props.task.id, taskNewInput);
@@ -113,14 +113,14 @@ function Task(props) {
                 <span className="float-left">
                 <span onClick={() => setEditMode(true)}>{editBtn}</span>
                     {/*<span onClick={() => props.onTaskDelete(props.task.id)}></span>*/}
-                    <span onClick={handleShow}>{deleteBtn}</span>
+                    <span onClick={() => setShow(true)}>{deleteBtn}</span>
                     </span>
                 {show &&
                     <>
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Body>Please confirm if you want to delete this task</Modal.Body>
                     <Modal.Footer>
-                        <Button type="button" className="btn btn-secondary btn-sm" onClick={handleClose}>Cancel</Button>
+                        <Button type="button" className="btn btn-secondary btn-sm" onClick={()=> setShow(false)}>Cancel</Button>
                         <Button type="button" className="btn btn-primary btn-sm" onClick={handleClose}>Confirm</Button>
                     </Modal.Footer>
                 </Modal>
