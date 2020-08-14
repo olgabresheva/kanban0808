@@ -78,6 +78,7 @@ function App() {
                         key={index}
                         status={el}
                         tasks={tasks}
+                        id={index}
                         onTaskDelete={onTaskDelete}
                         onTaskMove={onTaskMove}
                         onTaskMoveByPriority={onTaskMoveByPriority}

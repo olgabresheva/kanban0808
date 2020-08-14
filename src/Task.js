@@ -42,7 +42,6 @@ const upBtn = (<svg width="1em" height="1em" viewBox="0 0 16 16" className="bi b
           d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
 </svg>);
 
-
 const editBtn = (<svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-pencil" fill="currentColor"
                       xmlns="http://www.w3.org/2000/svg">
     <path fillRule="evenodd"
@@ -86,7 +85,7 @@ function Task(props) {
 
     return (
 
-        <div className="card">
+        <div className="card draggable" draggable="true">
             <div className="card-header">
                 <span className="priority">
                 {props.task.priority < 3 &&
@@ -112,18 +111,19 @@ function Task(props) {
             <div className="card-footer bg-transparent text-muted border-0">
                 <span className="float-left">
                 <span onClick={() => setEditMode(true)}>{editBtn}</span>
-                    {/*<span onClick={() => props.onTaskDelete(props.task.id)}></span>*/}
                     <span onClick={() => setShow(true)}>{deleteBtn}</span>
                     </span>
                 {show &&
-                    <>
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Body>Please confirm if you want to delete this task</Modal.Body>
-                    <Modal.Footer>
-                        <Button type="button" className="btn btn-secondary btn-sm" onClick={()=> setShow(false)}>Cancel</Button>
-                        <Button type="button" className="btn btn-primary btn-sm" onClick={handleClose}>Confirm</Button>
-                    </Modal.Footer>
-                </Modal>
+                <>
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Body>Please confirm if you want to delete this task</Modal.Body>
+                        <Modal.Footer>
+                            <Button type="button" className="btn btn-secondary btn-sm"
+                                    onClick={() => setShow(false)}>Cancel</Button>
+                            <Button type="button" className="btn btn-primary btn-sm"
+                                    onClick={handleClose}>Confirm</Button>
+                        </Modal.Footer>
+                    </Modal>
                 </>
                 }
 

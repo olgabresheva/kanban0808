@@ -17,12 +17,18 @@ function TaskCreateForm(props) {
     }
 
 
-    const taskCreate = (e) => {
-        //e.preventDefault();
+    const taskCreate = () => {
         props.onTaskCreate(newTask, priority);
         setFormOpen(false);
         setNewTask('');
         setAddBtnDisabled(true)
+    }
+
+    const onTaskCreateCancel = () => {
+        setNewTask('');
+        setPriority('Select Priority');
+        setAddBtnDisabled(true);
+        setFormOpen(false);
     }
 
     return (
@@ -45,6 +51,9 @@ function TaskCreateForm(props) {
                 </select>
                 <p/>
                 <button disabled={addBtnDisabled} type="submit" className="btn btn-info" onClick={taskCreate}>Add Task
+                </button>
+                <button type="button" className="btn btn-secondary"
+                        onClick={onTaskCreateCancel}>Cancel
                 </button>
             </form>
             }
